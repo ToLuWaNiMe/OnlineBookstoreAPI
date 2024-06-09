@@ -42,17 +42,17 @@ namespace OnlineBookstore.Controllers
         public async Task<ActionResult> UpdateBook(int id, Book book)
         {
             if (id != book.Id)
-                return BadRequest();
+                return BadRequest("Incorrect ID");
 
             await _bookRepository.UpdateBook(book);
-            return NoContent();
+            return Ok(book);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteBook(int id)
         {
             await _bookRepository.DeleteBook(id);
-            return NoContent();
+            return Ok("Book Deleted Successfully");
         }
 
     }
