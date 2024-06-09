@@ -20,7 +20,7 @@ namespace OnlineBookstore.Services
             var secretKey = _configuration["Jwt:Key"];
             var issuer = _configuration["Jwt:Issuer"];
             var audience = _configuration["Jwt:Audience"];
-            var expiration = DateTime.Now.AddMinutes(30);
+            var expiration = DateTime.UtcNow.AddHours(1);
 
             var claims = new[]
             {

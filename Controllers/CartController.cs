@@ -7,7 +7,7 @@ namespace OnlineBookstore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Policy = "RequireLoggedIn")]
     public class CartController : ControllerBase
     {
         private readonly ICartRepository _cartRepository;
@@ -28,21 +28,21 @@ namespace OnlineBookstore.Controllers
         public async Task<ActionResult> AddCartItem([FromBody] CartItem cartItem)
         {
             await _cartRepository.AddCartItem(cartItem);
-            return Ok();
+            return Ok("Cart Item Added Successfully");
         }
 
         [HttpPut]
         public async Task<ActionResult> UpdateCartItem([FromBody] CartItem cartItem)
         {
             await _cartRepository.UpdateCartItem(cartItem);
-            return Ok();
+            return Ok("Updated Successfully");
         }
 
         [HttpDelete("{userId}/{bookId}")]
         public async Task<ActionResult> RemoveCartItem(int userId, int bookId)
         {
             await _cartRepository.RemoveCartItem(userId, bookId);
-            return Ok();
+            return Ok("Item Removed");
         }
 
         [HttpDelete("{userId}/clear")]

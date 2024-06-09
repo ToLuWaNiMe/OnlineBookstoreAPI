@@ -14,8 +14,8 @@ namespace OnlineBookstore.Repositories
 
         public async Task<int> CreateOrder(Order order, IEnumerable<OrderItem> orderItems)
         {
-            var queryOrder = "INSERT INTO Orders (UserId, OrderDate, TotalAmount, PaymentMethod) VALUES (@UserId, @OrderDate, @TotalAmount, @PaymentMethod) RETURNING Id";
-            var queryOrderItem = "INSERT INTO OrderItems (OrderId, BookId, Quantity, Price) VALUES (@OrderId, @BookId, @Quantity, @Price)";
+            var queryOrder = "INSERT INTO Orders (User_Id, Order_Date, Total_Amount, Payment_Method) VALUES (@UserId, @OrderDate, @TotalAmount, @PaymentMethod) RETURNING Id";
+            var queryOrderItem = "INSERT INTO Order_Items (Order_Id, Book_Id, Quantity, Price) VALUES (@OrderId, @BookId, @Quantity, @Price)";
 
             using (var connection = _context.CreateConnection())
             {
@@ -33,7 +33,7 @@ namespace OnlineBookstore.Repositories
 
         public async Task<IEnumerable<Order>> GetOrders(int userId)
         {
-            var query = "SELECT * FROM Orders WHERE UserId = @UserId";
+            var query = "SELECT * FROM Orders WHERE User_Id = @UserId";
 
             using (var connection = _context.CreateConnection())
             {
@@ -43,7 +43,7 @@ namespace OnlineBookstore.Repositories
 
         public async Task<IEnumerable<OrderItem>> GetOrderItems(int orderId)
         {
-            var query = "SELECT * FROM OrderItems WHERE OrderId = @OrderId";
+            var query = "SELECT * FROM Order_Items WHERE Order_Id = @OrderId";
 
             using (var connection = _context.CreateConnection())
             {

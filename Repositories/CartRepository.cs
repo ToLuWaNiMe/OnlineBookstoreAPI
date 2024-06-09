@@ -14,7 +14,7 @@ namespace OnlineBookstore.Repositories
 
         public async Task<IEnumerable<CartItem>> GetCartItems(int userId)
         {
-            var query = "SELECT * FROM CartItems WHERE UserId = @UserId";
+            var query = "SELECT * FROM Cart_items WHERE User_Id = @UserId";
 
             using (var connection = _context.CreateConnection())
             {
@@ -24,7 +24,7 @@ namespace OnlineBookstore.Repositories
 
         public async Task<CartItem> GetCartItem(int userId, int bookId)
         {
-            var query = "SELECT * FROM CartItems WHERE UserId = @UserId AND BookId = @BookId";
+            var query = "SELECT * FROM Cart_items WHERE User_Id = @UserId AND Book_Id = @BookId";
 
             using (var connection = _context.CreateConnection())
             {
@@ -34,7 +34,7 @@ namespace OnlineBookstore.Repositories
 
         public async Task<int> AddCartItem(CartItem cartItem)
         {
-            var query = "INSERT INTO CartItems (UserId, BookId, Quantity) VALUES (@UserId, @BookId, @Quantity)";
+            var query = "INSERT INTO Cart_items (User_Id, Book_Id, Quantity) VALUES (@UserId, @BookId, @Quantity)";
 
             using (var connection = _context.CreateConnection())
             {
@@ -44,7 +44,7 @@ namespace OnlineBookstore.Repositories
 
         public async Task<int> UpdateCartItem(CartItem cartItem)
         {
-            var query = "UPDATE CartItems SET Quantity = @Quantity WHERE UserId = @UserId AND BookId = @BookId";
+            var query = "UPDATE Cart_items SET Quantity = @Quantity WHERE User_Id = @UserId AND Book_Id = @BookId";
 
             using (var connection = _context.CreateConnection())
             {
@@ -54,7 +54,7 @@ namespace OnlineBookstore.Repositories
 
         public async Task<int> RemoveCartItem(int userId, int bookId)
         {
-            var query = "DELETE FROM CartItems WHERE UserId = @UserId AND BookId = @BookId";
+            var query = "DELETE FROM Cart_items WHERE User_Id = @UserId AND Book_Id = @BookId";
 
             using (var connection = _context.CreateConnection())
             {
@@ -64,7 +64,7 @@ namespace OnlineBookstore.Repositories
 
         public async Task<int> ClearCart(int userId)
         {
-            var query = "DELETE FROM CartItems WHERE UserId = @UserId";
+            var query = "DELETE FROM Cart_items WHERE User_Id = @UserId";
 
             using (var connection = _context.CreateConnection())
             {

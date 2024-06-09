@@ -64,7 +64,12 @@ namespace OnlineBookstore.Repositories
 
         public async Task<IEnumerable<Book>> SearchBooks(string query)
         {
-            var sqlQuery = "SELECT * FROM Books WHERE Title LIKE @Query OR Author LIKE @Query OR Genre LIKE @Query OR PublicationYear LIKE @Query";
+            var sqlQuery = @"
+            SELECT * FROM Books
+            WHERE Title ILIKE @Query
+            OR Author ILIKE @Query
+            OR Genre ILIKE @Query
+            OR CAST(PublicationYear AS TEXT) ILIKE @Query";
 
             using (var connection = _context.CreateConnection())
             {

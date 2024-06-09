@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineBookstore.Models;
 using OnlineBookstore.Repositories;
 using OnlineBookstore.Services;
@@ -7,6 +8,7 @@ namespace OnlineBookstore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "RequireLoggedIn")]
     public class CheckoutController : ControllerBase
     {
         private readonly ICartRepository _cartRepository;

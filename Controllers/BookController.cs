@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineBookstore.Models;
 using OnlineBookstore.Repositories;
 
@@ -6,6 +7,7 @@ namespace OnlineBookstore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "RequireLoggedIn")]
     public class BooksController : ControllerBase
     {
         private readonly IBookRepository _bookRepository;
