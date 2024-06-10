@@ -14,15 +14,17 @@ namespace OnlineBookstore.Controllers
         private readonly ICartRepository _cartRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly IPaymentService _paymentService;
+        private readonly IBookRepository _bookRepository;
 
-        public CheckoutController(ICartRepository cartRepository, IOrderRepository orderRepository, IPaymentService paymentService)
+        public CheckoutController(ICartRepository cartRepository, IOrderRepository orderRepository, IPaymentService paymentService, IBookRepository bookRepository)
         {
             _cartRepository = cartRepository;
             _orderRepository = orderRepository;
             _paymentService = paymentService;
+            _bookRepository = bookRepository;
         }
 
-        [HttpPost]
+        [HttpPost("checkout")]
         public async Task<IActionResult> Checkout([FromBody] CheckoutRequest request)
         {
             if (request.BookPrices == null || !request.BookPrices.Any())
@@ -36,6 +38,20 @@ namespace OnlineBookstore.Controllers
                 return BadRequest("Cart is empty.");
             }
 
+            foreach (var item in cartItems)
+            {
+                if (!request.BookPrices.ContainsKey(item.BookId))
+                {
+                    return BadRequest($"The book with ID {item.BookId} was not found in the price list.");
+                }
+
+                // Verify book exists using GetBookById method
+                var book = await _bookRepository.GetBookById(item.BookId);
+                if (book == null)
+                {
+                    return BadRequest($"The book with ID {item.BookId} does not exist.");
+                }
+            }
             var totalAmount = cartItems.Sum(item => item.Quantity * request.BookPrices[item.BookId]);
             var paymentSuccessful = await _paymentService.ProcessPayment(request.PaymentMethod, totalAmount);
 

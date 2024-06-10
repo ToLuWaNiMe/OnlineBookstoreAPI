@@ -34,7 +34,7 @@ namespace OnlineBookstore.Repositories
 
         public async Task<int> AddCartItem(CartItem cartItem)
         {
-            var query = "INSERT INTO Cart_items (User_Id, Book_Id, Quantity) VALUES (@UserId, @BookId, @Quantity)";
+            var query = @"INSERT INTO Cart_items (User_Id, Book_Id, Quantity) VALUES (@UserId, @BookId, @Quantity)";
 
             using (var connection = _context.CreateConnection())
             {
