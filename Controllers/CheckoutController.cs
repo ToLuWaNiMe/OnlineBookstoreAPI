@@ -45,7 +45,6 @@ namespace OnlineBookstore.Controllers
                     return BadRequest($"The book with ID {item.BookId} was not found in the price list.");
                 }
 
-                // Verify book exists using GetBookById method
                 var book = await _bookRepository.GetBookById(item.BookId);
                 if (book == null)
                 {
