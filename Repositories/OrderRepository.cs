@@ -24,7 +24,7 @@ namespace OnlineBookstore.Repositories
                 foreach (var item in orderItems)
                 {
                     item.OrderId = orderId;
-                    await connection.ExecuteAsync(queryOrderItem, item);
+                    await connection.ExecuteAsync(queryOrderItem, item); 
                 }
 
                 return orderId;
