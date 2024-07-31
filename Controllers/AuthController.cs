@@ -35,7 +35,7 @@ namespace OnlineBookstore.Controllers
 
             await _userRepository.AddUser(user);
             return Ok("User registered successfully.");
-        }  
+        }
 
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(User loginUser)
